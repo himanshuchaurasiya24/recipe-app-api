@@ -10,10 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from pathlib import Path
-import os
-import sys
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from pathlib import Path
+
+import os
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -75,30 +76,15 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if 'test' in sys.argv:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+DATABASES = {
+    'default': {
+        "ENGINE": "django.db.backends.postgresql",
+        'HOST': os.environ.get("DB_HOST"),
+        'NAME': os.environ.get("DB_NAME"),
+        'USER': os.environ.get("DB_USER"),
+        'PASSWORD': os.environ.get("DB_PASS"),
     }
-elif os.environ.get("DB_HOST") and os.environ.get("DB_NAME"):
-    DATABASES = {
-        'default': {
-            "ENGINE": "django.db.backends.postgresql",
-            'HOST': os.environ.get("DB_HOST"),
-            'NAME': os.environ.get("DB_NAME"),
-            'USER': os.environ.get("DB_USER"),
-            'PASSWORD': os.environ.get("DB_PASS"),
-        }
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
 
 # Password validation
