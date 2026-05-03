@@ -1,6 +1,3 @@
-"""Admin registrations for core app.
-
-Placeholder module for admin site registrations.
-"""
+from django.contrib import admin  # noqa
 
 # Register your models here.
